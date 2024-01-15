@@ -31,7 +31,7 @@ class Channel:
         self.views_count = self.channel_data['items'][0]['statistics']['subscriberCount']
 
         self.new_data = {
-            'id': self.channel_data,
+            'id': self.__channel_id,
             'title': self.title,
             'description': self.description,
             'url': self.url,
