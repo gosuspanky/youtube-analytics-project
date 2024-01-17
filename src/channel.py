@@ -4,9 +4,9 @@ from googleapiclient.discovery import build
 from config import CHANNEL_DATA
 
 
-def printj(dict_to_print: dict) -> None:
-    """Выводит словарь в json-подобном удобном формате с отступами"""
-    print(json.dumps(dict_to_print, indent=2, ensure_ascii=False))
+# def printj(dict_to_print: dict) -> None:
+#     """Выводит словарь в json-подобном удобном формате с отступами"""
+#     print(json.dumps(dict_to_print, indent=2, ensure_ascii=False))
 
 
 class Channel:
@@ -40,10 +40,34 @@ class Channel:
             'views_count': self.views_count,
         }
 
+    def __str__(self):
+        return f"{self.title}({self.url})"
+
+    def __add__(self, other):
+        return int(self.subs_count) + int(other.subs_count)
+
+    def __sub__(self, other):
+        return int(self.subs_count) - int(other.subs_count)
+
+    def __gt__(self, other):
+        return int(self.subs_count) > int(other.subs_count)
+
+    def __ge__(self, other):
+        return int(self.subs_count) >= int(other.subs_count)
+
+    def __lt__(self, other):
+        return int(self.subs_count) < int(other.subs_count)
+
+    def __le__(self, other):
+        return int(self.subs_count) <= int(other.subs_count)
+
+    def __eq__(self, other):
+        return int(self.subs_count) == int(other.subs_count)
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         channel = self.youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
-        printj(channel)
+        self.printj(channel)
 
     @property
     def channel_id(self):
@@ -58,3 +82,8 @@ class Channel:
 
         with open(f"../Data/{file_name}", 'w', encoding='windows-1251') as file:
             file.write(json_data)
+
+    @staticmethod
+    def printj(dict_to_print: dict) -> None:
+        """Выводит словарь в json-подобном удобном формате с отступами"""
+        print(json.dumps(dict_to_print, indent=2, ensure_ascii=False))
