@@ -30,15 +30,6 @@ class Channel:
         self.video_count = self.channel_data['items'][0]['statistics']['videoCount']
         self.views_count = self.channel_data['items'][0]['statistics']['subscriberCount']
 
-        self.new_data = {
-            'id': self.__channel_id,
-            'title': self.title,
-            'description': self.description,
-            'url': self.url,
-            'subs_count': self.subs_count,
-            'video_count': self.video_count,
-            'views_count': self.views_count,
-        }
 
     def __str__(self):
         return f"{self.title}({self.url})"
@@ -78,7 +69,17 @@ class Channel:
         return cls.youtube
 
     def to_json(self, file_name):
-        json_data = json.dumps(self.new_data, ensure_ascii=False)
+        new_data = {
+            'id': self.__channel_id,
+            'title': self.title,
+            'description': self.description,
+            'url': self.url,
+            'subs_count': self.subs_count,
+            'video_count': self.video_count,
+            'views_count': self.views_count,
+        }
+
+        json_data = json.dumps(new_data, ensure_ascii=False)
 
         with open(f"../Data/{file_name}", 'w', encoding='windows-1251') as file:
             file.write(json_data)
