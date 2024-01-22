@@ -30,7 +30,6 @@ class Channel:
         self.video_count = self.channel_data['items'][0]['statistics']['videoCount']
         self.views_count = self.channel_data['items'][0]['statistics']['subscriberCount']
 
-
     def __str__(self):
         return f"{self.title}({self.url})"
 
