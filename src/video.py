@@ -23,9 +23,7 @@ class Video:
             self.video_url = f'https://www.youtube.com/watch?v={self.__video_id}'
             self.video_view_count = self.video_response['items'][0]['statistics']['viewCount']
             self.video_like_count = self.video_response['items'][0]['statistics']['likeCount']
-        except IndexError:
-            print("Не верно введено video_id")
-        except AttributeError:
+        except (IndexError, AttributeError):
             print("Не верно введено video_id")
 
     @property
